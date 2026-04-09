@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Jay</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { width: 100%; height: 100%; font-family: 'Helvetica Neue', Arial, sans-serif; background: #1a0b2e; overflow: hidden; }
+        
+        /* TROLL SCREEN */
+        #troll-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a0b2e; z-index: 100; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; color: white; padding: 20px;
+        }
+        h1 { font-size: 28px; margin-bottom: 30px; line-height: 1.4; }
+        .troll-btns { display: flex; gap: 20px; justify-content: center; width: 100%; }
+        button { padding: 15px 30px; font-size: 18px; border-radius: 50px; border: none; cursor: pointer; font-weight: bold; min-width: 100px; }
+        #yes-btn { background: #d63384; color: white; transition: 0.3s; }
+        #no-btn { background: white; color: #333; position: absolute; transition: 0.1s; }
+
+        /* CELEBRATION */
+        #celebration { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 150; pointer-events: none; background: rgba(26, 11, 46, 0.9); }
+        .graffiti { position: absolute; font-size: 50px; font-weight: 900; color: #ff8da1; opacity: 0.5; font-family: 'Arial Black'; text-transform: uppercase; }
+        #dog { position: absolute; font-size: 80px; bottom: -150px; left: 50%; transform: translateX(-50%); transition: bottom 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+        /* THE LETTER */
+        #letter-container { display: none; height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch; }
+        section { 
+            height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; 
+            scroll-snap-align: start; text-align: center; padding: 40px; flex-shrink: 0;
+            color: white; font-size: 20px; line-height: 1.6;
+        }
+        .bg-1 { background: #2d1b4e; } .bg-2 { background: #4a2a6d; } .bg-3 { background: #7a4d7b; } 
+        .bg-4 { background: #ac5b8a; } .bg-5 { background: #d63384; } .bg-6 { background: #ff8da1; } .bg-7 { background: #ffb1c1; color: #1a0b2e; }
+        b { color: #ffe3ec; }
+    </style>
+</head>
+<body>
+
+    <!-- TROLL SCREEN -->
+    <div id="troll-screen">
+        <h1 id="troll-msg">Quick question... <br> Do you miss me? </h1>
+        <div class="troll-btns" style="position: relative; height: 100px; width: 100%;">
+            <button id="yes-btn" onclick="handleYes()" style="position: absolute; left: 20%;">YES</button>
+            <button id="no-btn" onmouseover="moveNo()" ontouchstart="moveNo()" onclick="handleNo()" style="position: absolute; right: 20%;">NO</button>
+        </div>
+    </div>
+
+    <!-- CELEBRATION OVERLAY -->
+    <div id="celebration">
+        <div class="graffiti" style="top:15%; left:5%;">YESSSS</div>
+        <div class="graffiti" style="top:50%; right:5%; transform: rotate(15deg);">WHEW</div>
+        <div id="dog">🐶</div>
+    </div>
+
+    <!-- THE SCROLLABLE LETTER -->
+    <div id="letter-container">
+        <section class="bg-1"><div>Good choice. I knew you couldn't say no. HAHA. <br><br><b>(Scroll down for the real stuff)</b></div></section>
+        
+        <section class="bg-2"><div>Tbh, I don't think you realize how much of a vibe you actually are. It is not just that you are pretty, which you obviously are, but it is your whole energy. The way you make even the most random conversations actually interesting.</div></section>
+        
+        <section class="bg-3"><div>I am really glad I get to be the one courting you. Sometimes I catch myself just smiling at my phone because of a message you sent. You have become a pretty big part of my day and I would not have it any other way.</div></section>
+        
+        <section class="bg-4"><div>And look, I know I can be a bit much sometimes, like the random check ins or the clingy messages out of nowhere. I just hope it does not get annoying or anything.</div></section>
+        
+        <section class="bg-5"><div>I just genuinely enjoy talking to you and I guess I get a bit excited about it. It is hard not to be when it is you. I just hope you do not ever get tired of it because I do not think I will ever get tired of you.</div></section>
+
+        <section class="bg-6"><div>By the way, please take care of yourself for me. Make sure you eat at the right time because I do not want you getting sick. And try not to stay up too late even though I love talking to you. Your rest is actually important.</div></section>
+        
+        <section class="bg-7"><div>Anyway, no big reason for this. Just wanted you to have something to read whenever you are having a long day. <br><br> Stay as you are, <b>Jay.</b> ❤️</div></section>
+    </div>
+
+    <script>
+        let noCount = 0;
+        const noBtn = document.getElementById('no-btn');
+        const trollMsg = document.getElementById('troll-msg');
+
+        function moveNo() {
+            noCount++;
+            if (noCount >= 1) {
+                trollMsg.innerText = "No wait i am gonna die if you click that again!";
+            }
+            if (noCount >= 2) {
+                trollMsg.innerText = "Stop it HAHAHA click YES already!";
+                const x = Math.random() * (window.innerWidth - 100);
+                const y = Math.random() * (window.innerHeight - 100);
+                noBtn.style.left = x + 'px';
+                noBtn.style.top = y + 'px';
+            }
+        }
+
+        function handleNo() {
+            moveNo();
+        }
+
+        function handleYes() {
+            document.getElementById('troll-screen').style.display = 'none';
+            document.getElementById('celebration').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('dog').style.bottom = '100px';
+            }, 100);
+
+            setTimeout(() => {
+                document.getElementById('celebration').style.display = 'none';
+                document.getElementById('letter-container').style.display = 'block';
+                document.body.style.overflow = 'auto';
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
